@@ -16,5 +16,9 @@
   "developer": {
     "name": "Sean Stangl"
   },
-  "permissions": {}
+  "permissions": {
+    "audio-channel-content": {
+      "description": "Play interval notifications when screen is locked."
+    }
+  }
 }
