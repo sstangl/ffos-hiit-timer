@@ -5,7 +5,9 @@
   "appcache_path": "/cache.manifest",
   "default_locale": "en",
   "fullscreen": "true",
-  "orientation": ["portrait"],
+  "orientation": [
+    "portrait"
+  ],
   "type": "web",
   "version": "0.1a",
   "icons": {
@@ -14,6 +16,5 @@
   "developer": {
     "name": "Sean Stangl"
   },
-  "permissions": {
-  }
+  "permissions": {}
 }
