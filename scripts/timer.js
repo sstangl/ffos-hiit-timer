@@ -70,7 +70,7 @@ function tickTimer() {
 }
 
 $(document).ready(function() {
-    clock = $('.clock').FlipClock(999, {
+    clock = $('.clock').FlipClock(times[0], {
         clockFace: 'Counter'
     });
 
