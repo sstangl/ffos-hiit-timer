@@ -20,7 +20,7 @@ var times = [
     20, // 20 seconds all-out 5
     100, // 1m40s light effort
     20, // 20 seconds all-out 6
-    6000 // 10 minute cooldown
+    600 // 10 minute cooldown
 ];
 
 function startTimer() {
