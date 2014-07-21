@@ -6,21 +6,23 @@ var clock = null; // Set on document ready.
 var countdown = null; // Interval set on timer start.
 var button = document.getElementById("startButton");
 
+var vibrateNextTick = false;
+
 var totalTime = 0; // Total time spent on the training.
 var times = [
     300, // 5 minute warmup
-    20, // 20 seconds all-out 1
+    20,  // 20 seconds all-out 1
     100, // 1m40s light effort
-    20, // 20 seconds all-out 2
+    20,  // 20 seconds all-out 2
     100, // 1m40s light effort
-    20, // 20 seconds all-out 3
+    20,  // 20 seconds all-out 3
     100, // 1m40s light effort
-    20, // 20 seconds all-out 4
+    20,  // 20 seconds all-out 4
     100, // 1m40s light effort
-    20, // 20 seconds all-out 5
+    20,  // 20 seconds all-out 5
     100, // 1m40s light effort
-    20, // 20 seconds all-out 6
-    600 // 10 minute cooldown
+    20,  // 20 seconds all-out 6
+    600  // 10 minute cooldown
 ];
 
 function startTimer() {
@@ -28,7 +30,7 @@ function startTimer() {
         clearInterval(countdown);
 
     totalTime = 0;
-    clock.setTime(times[0]);
+    clock.setCounter(times[0]);
     countdown = setInterval(tickTimer, 1000);
 }
 
@@ -37,11 +39,11 @@ function stopTimer() {
     countdown = null;
 }
 
-function getCurrentIntervalIndex(time, intervals) {
+function getCurrentIntervalIndex(totalElapsed, intervals) {
     var acc = 0;
     for (var i = 0; i < intervals.length; i++) {
         acc += intervals[i];
-        if (time <= acc)
+        if (totalElapsed < acc)
             return i;
     }
     return -1;
@@ -53,17 +55,27 @@ function tickTimer() {
     
     totalTime += 1;
 
-    // Transition point
-    if (seconds === 0) {
+    if (vibrateNextTick === true) {
         window.navigator.vibrate(500);
-        var index = getCurrentIntervalIndex(totalTime, times);
+        vibrateNextTick = false;
+    }
 
+    // Transition point
+    if (seconds === 1) {
+        // Get the next interval.
+        var index = getCurrentIntervalIndex(totalTime + 1, times);
+
+        // No interval returned: display zero.
         if (index === -1) {
+            clock.setCounter(0);
             stopTimer();
             return;
         }
 
-        clock.setTime(times[index]);
+        // Flip to the next interval, bypassing zero.
+        clock.setCounter(times[index]);
+        vibrateNextTick = true;
+        return;
     }
 
     clock.decrement();
@@ -71,7 +83,8 @@ function tickTimer() {
 
 $(document).ready(function() {
     clock = $('.clock').FlipClock(times[0], {
-        clockFace: 'Counter'
+        clockFace: 'Counter',
+        minimumDigits: 3
     });
 
     button.addEventListener("click", startTimer, false);
