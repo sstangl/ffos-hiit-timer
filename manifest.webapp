@@ -2,6 +2,9 @@
   "name": "HIIT Timer",
   "description": "Interval timer for high-intensity interval training.",
   "launch_path": "/index.html",
+  "developer": {
+    "name": "Sean Stangl"
+  }
   "appcache_path": "/cache.manifest",
   "default_locale": "en",
   "fullscreen": "true",
