@@ -4,7 +4,7 @@
 
 // Countdown timer implementation, largely copied from gaia/apps/clock/js/stopwatch.js.
 
-var Countdown = (function () {
+define(function () {
 
   'use strict';
 
@@ -98,4 +98,4 @@ var Countdown = (function () {
   };
 
   return Countdown;
-})();
+});
